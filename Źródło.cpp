@@ -1,21 +1,21 @@
 #include <iostream>
 
-const char *Dzialania[4] = { "dodawania","odejmowania","mnozenia","dzielenia",};
+const char *Dzialania[4] = { "dodawania","odejmowania","mnozenia","dzielenia", };
 
-double calculate(double a, double b, double (double, double));
+double calculate(double a, double b, double(double, double));
 double add(double a, double b);
 double subtract(double a, double b);
 double multiply(double a, double b);
 double divide(double a, double b);
 int dzialanie();
-void pobieranie(double liczby[2],int znak,int nr);
+void pobieranie(double liczby[2], int znak, int nr);
 
 
 int main()
 {
-	std::cout << *Dzialania << "\n" << *(Dzialania+1) << "\n" << Dzialania[2] << "\n" << Dzialania[3] << "\n";
+	std::cout << *Dzialania << "\n" << *(Dzialania + 1) << "\n" << Dzialania[2] << "\n" << Dzialania[3] << "\n";
 	// wskaznik na tablice wskaznikow funkcji
-	double(*pf[4])(double, double) = { add,subtract,multiply,divide };
+	double(*pf[4])(double, double) = { *add,*subtract,*multiply,*divide }; //== { add,subtract,multiply,divide }; <- to to samo-  w obu przypadkach przekazujemy adres
 	while (1)
 	{
 		int znak;
@@ -39,10 +39,10 @@ int main()
 			break;
 		case 2:
 			std::cout << "Wynik " << Dzialania[2] << " liczb " << liczby[0] << " i "
-				<< liczby[1] << " daje wynik " << calculate(liczby[0], liczby[1], pf[2]) << std::endl<<std::endl;
+				<< liczby[1] << " daje wynik " << calculate(liczby[0], liczby[1], pf[2]) << std::endl << std::endl;
 			break;
 		case 3:
-			if (liczby[1]==0)
+			if (liczby[1] == 0)
 				std::cout << "Nie dzieli sie przez 0\nHInzu jest glupi\n";
 			else
 				std::cout << "Wynik " << Dzialania[3] << " liczb " << liczby[0] << " i "
@@ -54,11 +54,11 @@ int main()
 	return 0;
 }
 
-void pobieranie(double liczby[2],int znak,int nr)
+void pobieranie(double liczby[2], int znak, int nr)
 {
 	if (nr < 2)
 	{
-		std::cout << "podaj " << nr+1 << " liczbe do " << Dzialania[znak] << " : ";
+		std::cout << "podaj " << nr + 1 << " liczbe do " << Dzialania[znak] << " : ";
 		std::cin >> liczby[nr];
 		if (!std::cin)
 		{
@@ -69,11 +69,11 @@ void pobieranie(double liczby[2],int znak,int nr)
 			pobieranie(liczby, znak, nr);
 			return;
 		}
-		if (nr<1)
-			pobieranie(liczby, znak, nr+1);
+		if (nr < 1)
+			pobieranie(liczby, znak, nr + 1);
 	}
 
-	
+
 
 
 }
@@ -103,11 +103,11 @@ int dzialanie()
 	case '0':
 		funkcja = 10;
 		break;
-	default :
+	default:
 		while (std::cin.get() != '\n')
 			continue;
-		funkcja = dzialanie();
-		
+		funkcja = dzialanie();  //recursion
+
 	}
 	return funkcja;
 }
@@ -115,7 +115,7 @@ int dzialanie()
 
 double calculate(double a, double b, double pf(double, double))
 {
-	return pf(a,b);
+	return pf(a, b);
 }
 
 
@@ -129,7 +129,7 @@ double add(double a, double b)
 double subtract(double a, double b)
 {
 	double result;
-	return result =a - b;
+	return result = a - b;
 }
 
 
