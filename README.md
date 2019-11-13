@@ -1,1 +1,1 @@
-Calculator
+Calculator: Using pointers on different functions(add,mius,e.t.c) to make correct equation in calculate function.
